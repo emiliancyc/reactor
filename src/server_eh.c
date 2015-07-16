@@ -23,12 +23,12 @@ static int handle_event(event_handler* self, const struct epoll_event* e){
 	}
 	
 	cli_eh = create_client_eh(cli_fd);
-	self->ctx->r->add_eh(r, cli_eh);
+	self->ctx->r->add_eh(self->ctx->r, cli_eh);
 	return 0;
 }
 
 event_handler* create_server_eh(reactor* r, int port, int size){
-	event_handler seh=malloc(sizeof(event_handler));
+	event_handler* seh=malloc(sizeof(event_handler));
 	eh_ctx* ctx = malloc(sizeof(eh_ctx));
 	ctx->fd=socket(AF_INET, S.NONBLOCK|SOCK_STREAM, 0); //sprawdzic czy sie zgadza z serwerem poprzednim
 	//bind(ctx->fd, ...);
