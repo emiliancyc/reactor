@@ -1,4 +1,8 @@
 #include "server_eh.h"
+#include "sys/socket.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "unistd.h"
 
 struct eh_ctx{
 	int fd;
@@ -14,7 +18,7 @@ static int handle_event(event_handler* self, const struct epoll_event* e){
 	event_handler* cli_eh = 0 ;
 	
 	struct sockaddr_in cli_addr;
-	socklen_t cli_addr_len = sizeof(struct sockaddr_in);
+	socklen_t cli_addr_len = sizeof(cli_addr);
 	memset(&cli_addr, 0, cli_addr_len);
 	cli_fd=accept(self->ctx->fd, &cli_addr, &cli_addr_len);
 	if(cli_fd<0){
@@ -30,7 +34,7 @@ static int handle_event(event_handler* self, const struct epoll_event* e){
 event_handler* create_server_eh(reactor* r, int port, int size){
 	event_handler* seh=malloc(sizeof(event_handler));
 	eh_ctx* ctx = malloc(sizeof(eh_ctx));
-	ctx->fd=socket(AF_INET, S.NONBLOCK|SOCK_STREAM, 0); //sprawdzic czy sie zgadza z serwerem poprzednim
+	ctx->fd=socket(AF_INET, SOCK_NONBLOCK|SOCK_STREAM, 0); //sprawdzic czy sie zgadza z serwerem poprzednim
 	//bind(ctx->fd, ...);
 	//listen(ctx->fd, ...); //tutaj bedzie copypaste z poprzedniego programu
 	seh->ctx=ctx; //tutaj mamy polimorfizm bo przypisujemy wskazniki na konstruktor
