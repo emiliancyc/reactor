@@ -14,7 +14,7 @@ static int handle_event(event_handler* self, const struct epoll_event* e){
 	event_handler* cli_eh = 0 ;
 	
 	struct sockaddr_in cli_addr;
-	sockaddrlen_t cli_addr_len = sizeof(struct sockaddr_in);
+	socklen_t cli_addr_len = sizeof(struct sockaddr_in);
 	memset(&cli_addr, 0, cli_addr_len);
 	cli_fd=accept(self->ctx->fd, &cli_addr, &cli_addr_len);
 	if(cli_fd<0){

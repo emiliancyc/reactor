@@ -1,4 +1,4 @@
-#include <epoll.h>
+#include <sys/epoll.h>
 //struct epoll_event; forward deklaracji (zamiast include'a)
 
 
